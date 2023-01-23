@@ -4,6 +4,8 @@
   vars_files:
     - vars.yml
   collections:
+    - middleware_automation.jws
     - middleware_automation.common_criteria
   roles:
+    - jws
     - jws_common_criteria
