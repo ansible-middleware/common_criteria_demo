@@ -1,0 +1,9 @@
+---
+- name: "Converge"
+  hosts: all
+  vars_files:
+    - vars.yml
+  collections:
+    - middleware_automation.common_criteria
+  roles:
+    - wildfly_common_criteria

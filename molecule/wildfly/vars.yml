@@ -1,0 +1,6 @@
+---
+wildfly_home: '/opt/wildfly/wildfly-27.0.0.Final'
+wildfly_java_home: '/usr/lib/jvm/jre-openjdk/'
+wildfly_java_package_name: java-11-openjdk-headless
+wildfly_user: 'wildfly'
+wildfly_group: "{{ wildfly_user }}"

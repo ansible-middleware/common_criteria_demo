@@ -1,0 +1,44 @@
+---
+- name: "Validate Common Criteria recommendations on Wildfly installation"
+  hosts: all
+  vars_files:
+    - ../molecule/wildfly/vars.yml
+  tasks:
+    - name: "Ensure user {{ wildfly_user }} exists."
+      group:
+        name: "{{ wildfly_group }}"
+
+    - name: "Ensure group {{ wildfly_group }} exists."
+      user:
+        name: "{{ wildfly_user }}"
+        groups: "{{ wildfly_group }}"
+        state: present
+
+    - package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - unzip
+        - tar
+        - java-1.8.0-openjdk
+
+    - name: "Start server"
+      command: "{{ wildfly_home }}/bin/standalone.sh"
+      register: out
+      async: 15
+      poll: 0
+
+    - wait_for:
+        timeout: 10
+
+    - debug:
+        msg: "{{ out }}"
+
+  post_tasks:
+    - wait_for:
+        port: 8080
+
+    - name: "Checks that Wildfly server is running and accessible"
+      get_url:
+        url: http://localhost:8080/
+        dest: '/dev/null'

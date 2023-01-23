@@ -1,0 +1,19 @@
+---
+- name: "Validate Common Criteria recommendations on Tomcat installation"
+  hosts: all
+  vars_files:
+    - ../molecule/tomcat/vars.yml
+  tasks:
+    - name: "Download latest Apache Tomcat Zipfile from {{ tomcat_download_url }}."
+      get_url:
+        url: "{{ tomcat_download_url }}"
+        dest: "{{ tomcat_zipfile }}"
+      when:
+        - tomcat_download_url is defined
+
+    - name: "Ensure Tomcat is started and listen to appropriate port"
+      wait_for:
+        host: "{{ override_tomcat_listen_http_bind_address }}"
+        port: "{{ override_tomcat_listen_http_port | default(8080) }}"
+      when:
+        - tomcat_systemd_enabled is defined
