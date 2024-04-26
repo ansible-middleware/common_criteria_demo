@@ -1,8 +1,7 @@
 ---
 - name: Prepare
   hosts: all
-  vars_files:
-    - vars.yml
+  become_user: root
   tasks:
     - name: Display Ansible version
       debug:
@@ -11,11 +10,3 @@
     - name: Install required dependencies
       package:
         name: sudo
-
-  pre_tasks:
-    - name: "Download latest Apache Tomcat zip file from {{ download_url }}."
-      get_url:
-        url: "{{ download_url }}"
-        dest: "{{ tomcat_zipfile }}"
-      when:
-        - download_url is defined

@@ -17,7 +17,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          path: ansible_collections/middleware_automation/common_criteria-demo
+          path: /home/runner/work/common_criteria_demo/common_criteria_demo
 
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v1
@@ -27,17 +27,7 @@ jobs:
       - name: Install yamllint, ansible and molecule
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint 'molecule[docker]~=3.5.2' ansible-core flake8 ansible-lint voluptuous
-
-      - name: Create default collection path
-        run: |
-          mkdir -p /home/runner/.ansible/collections/ansible_collections
-
-      - name: Install ansible-lint custom rules
-        uses: actions/checkout@v2
-        with:
-          repository: ansible-middleware/ansible-lint-custom-rules
-          path: ansible_collections/ansible-lint-custom-rules/
+          pip install yamllint 'molecule>=6.0.3' 'molecule-plugins[docker]>=23.5.3' ansible-core flake8 ansible-lint voluptuous
 
       - name: Run molecule test
         run: |
@@ -46,4 +36,3 @@ jobs:
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
-        working-directory: ./ansible_collections/middleware_automation/common_criteria-demo
