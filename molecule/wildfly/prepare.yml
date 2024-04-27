@@ -1,6 +1,7 @@
 ---
 - name: Prepare
   hosts: all
+  become_user: root
   tasks:
     - name: Display Ansible version
       debug:

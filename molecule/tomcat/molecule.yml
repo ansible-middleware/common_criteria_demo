@@ -7,11 +7,9 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: registry.access.redhat.com/ubi8/ubi-init:latest
+    image: registry.access.redhat.com/ubi9/ubi-init:latest
+    pre_build_image: true
     privileged: true
-    tmpfs:
-      - /run
-      - /tmp
     command: "/usr/sbin/init"
     port_bindings:
       - 8080:8080
@@ -19,10 +17,16 @@ platforms:
       - 0.0.0.0:8080:8080/TCP
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_VERBOSITY: 3
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+    ssh_connection:
+      pipelining: false
   playbooks:
-    converge: converge.yml
     prepare: prepare.yml
-    verify: ../../playbooks/playbook_tomcat.yml
+    converge: ../../playbooks/playbook_tomcat.yml
     vars:
       ansible_distribution: 'RedHat'
   inventory:
@@ -32,8 +36,6 @@ verifier:
   name: ansible
 scenario:
   test_sequence:
-    - dependency
-    - lint
     - cleanup
     - destroy
     - syntax

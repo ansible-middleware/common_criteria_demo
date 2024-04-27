@@ -1,9 +1,38 @@
 ---
 - name: "Validate Common Criteria recommendations on Tomcat installation"
   hosts: all
+  become: yes
+  become_user: root
   vars_files:
-    - ../molecule/tomcat/vars.yml
+    - vars.yml
+  collections:
+    - middleware_automation.jws
+    - middleware_automation.common_criteria
+  roles:
+    - jws
+    - jws_common_criteria
   tasks:
+    - name: "Ensure user {{ jws_user }} exists."
+      ansible.builtin.user:
+        name: "{{ jws_user }}"
+        groups: "{{ jws_group }}"
+        state: present
+
+    - name: "Ensure group {{ jws_group }} exists."
+      ansible.builtin.group:
+        name: "{{ jws_group }}"
+        state: present
+
+  pre_tasks:
+    - name: "Download latest Apache Tomcat zip file from {{ download_url }}."
+      get_url:
+        url: "{{ download_url }}"
+        dest: "{{ tomcat_zipfile }}"
+      when:
+        - download_url is defined
+      become: yes
+
+  post_tasks:
     - name: "Ensure Tomcat is started and listen to appropriate port"
       wait_for:
         host: "{{ override_tomcat_listen_http_bind_address }}"
