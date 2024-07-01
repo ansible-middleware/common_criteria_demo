@@ -1,0 +1,12 @@
+---
+- name: "Converge"
+  hosts: all
+  vars_files:
+    - ../../playbooks/vars/wildfly.yml
+  collections:
+    - middleware_automation.wildfly
+    - middleware_automation.common_criteria
+  roles:
+    - wildfly_install
+    - wildfly_systemd
+    - wildfly_common_criteria

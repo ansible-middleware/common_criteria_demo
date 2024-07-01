@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="04965bb1-d190-4628-b79f-e2116a41e558" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/molecule/tomcat/converge.yml" beforeDir="false" afterPath="$PROJECT_DIR$/molecule/tomcat/converge.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/tomcat/molecule.yml" beforeDir="false" afterPath="$PROJECT_DIR$/molecule/tomcat/molecule.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/tomcat/prepare.yml" beforeDir="false" afterPath="$PROJECT_DIR$/molecule/tomcat/prepare.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/tomcat/vars.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/wildfly/converge.yml" beforeDir="false" afterPath="$PROJECT_DIR$/molecule/wildfly/converge.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/wildfly/molecule.yml" beforeDir="false" afterPath="$PROJECT_DIR$/molecule/wildfly/molecule.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/molecule/wildfly/vars.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/playbooks/playbook_tomcat.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/playbooks/playbook_wildfly.yml" beforeDir="false" afterPath="$PROJECT_DIR$/playbooks/wildfly.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2fdpsn2ehQvYLeV3TkrbOffIekS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "AMW-268",
+    "last_opened_file_path": "/Users/ranabirchakraborty/Development/Work/AnsibleMiddleware/common_criteria_demo/molecule/wildfly"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/molecule/wildfly" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="common_criteria_demo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="common_criteria_demo" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04965bb1-d190-4628-b79f-e2116a41e558" name="Changes" comment="" />
+      <created>1714141020122</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714141020122</updated>
+    </task>
+    <servers />
+  </component>
+</project>

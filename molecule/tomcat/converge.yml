@@ -1,0 +1,11 @@
+---
+- name: "Converge"
+  hosts: all
+  vars_files:
+    - ../../playbooks/vars/tomcat.yml
+  collections:
+    - middleware_automation.jws
+    - middleware_automation.common_criteria
+  roles:
+    - jws
+    - jws_common_criteria
