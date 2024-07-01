@@ -1,12 +1,11 @@
 ---
 - name: Prepare
   hosts: all
-  become_user: root
   tasks:
     - name: Display Ansible version
-      debug:
+      ansible.builtin.debug:
         msg: "Ansible version is  {{ ansible_version.full }}"
 
     - name: Install required dependencies
-      package:
+      ansible.builtin.package:
         name: sudo
