@@ -1,0 +1,46 @@
+---
+- name: "Validate Common Criteria recommendations on Wildfly installation"
+  hosts: all
+  vars_files:
+    - vars/wildfly.yml
+  tasks:
+    - name: "Ensure user {{ wildfly_user }} exists."
+      ansible.builtin.group:
+        name: "{{ wildfly_group }}"
+
+    - name: "Ensure group {{ wildfly_group }} exists."
+      ansible.builtin.user:
+        name: "{{ wildfly_user }}"
+        groups: "{{ wildfly_group }}"
+        state: present
+
+    - name: "Install required packages"
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - unzip
+        - tar
+        - java-1.8.0-openjdk
+
+    - name: "Start server"
+      ansible.builtin.command: "{{ wildfly_home }}/bin/standalone.sh"
+      register: out
+      async: 15
+      poll: 0
+
+    - name: "Time out"
+      ansible.builtin.wait_for:
+        timeout: 10
+
+    - ansible.builtin.debug:
+        msg: "{{ out }}"
+
+  post_tasks:
+    - ansible.builtin.wait_for:
+        port: 8080
+
+    - name: "Checks that Wildfly server is running and accessible"
+      ansible.builtin.get_url:
+        url: http://localhost:8080/
+        dest: '/dev/null'

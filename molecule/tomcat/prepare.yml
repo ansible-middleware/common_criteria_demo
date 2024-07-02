@@ -1,12 +1,21 @@
 ---
 - name: Prepare
   hosts: all
-  become_user: root
+  vars_files:
+    - ../../playbooks/vars/tomcat.yml
   tasks:
     - name: Display Ansible version
-      debug:
+      ansible.builtin.debug:
         msg: "Ansible version is  {{ ansible_version.full }}"
 
     - name: Install required dependencies
-      package:
+      ansible.builtin.package:
         name: sudo
+
+  post_tasks:
+    - name: "Download latest Apache Tomcat zip file from {{ download_url }}."
+      ansible.builtin.get_url:
+        url: "{{ download_url }}"
+        dest: "{{ tomcat_zipfile }}"
+      when:
+        - download_url is defined

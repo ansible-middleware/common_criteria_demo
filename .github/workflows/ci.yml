@@ -1,38 +1,40 @@
 ---
 name: CI
-"on":
+
+on:
+  pull_request:
   push:
     branches:
       - main
-  pull_request:
-  repository_dispatch:
 
 jobs:
-  molecule:
+  test:
+    name: molecule
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        python_version: ["3.10"]
+        python-version: ['3.11']
+
     steps:
-      - name: Check out code
+      - name: Checkout the codebase.
         uses: actions/checkout@v2
-        with:
-          path: /home/runner/work/common_criteria_demo/common_criteria_demo
 
       - name: Set up Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python_version }}
 
-      - name: Install yamllint, ansible and molecule
+      - name: Install testing dependencies.
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint 'molecule>=6.0.3' 'molecule-plugins[docker]>=23.5.3' ansible-core flake8 ansible-lint voluptuous
+          pip install yamllint 'molecule>=6.0.3' 'molecule-plugins[podman]>=23.0.0' 'ansible-core<2.16' flake8 ansible-lint voluptuous
+          ansible-galaxy collection install -r requirements.yml
 
-      - name: Run molecule test
-        run: |
-          ansible-galaxy collection install -r molecule/requirements.yml
-          molecule test --all
+      - name: "Run molecule tests"
+        run: molecule test --all
         env:
-          PY_COLORS: "1"
-          ANSIBLE_FORCE_COLOR: "1"
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: rhel-9
+        working-directory: '.'

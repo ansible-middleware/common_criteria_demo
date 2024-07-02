@@ -4,29 +4,21 @@ dependency:
   options:
     requirements-file: molecule/requirements.yml
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
-    image: registry.access.redhat.com/ubi9/ubi-init:latest
+    image: registry.access.redhat.com/ubi8/ubi-init:latest
     pre_build_image: true
     privileged: true
     command: "/usr/sbin/init"
-    port_bindings:
-      - 8080:8080
-    published_ports:
-      - 0.0.0.0:8080:8080/TCP
+    packages:
+      - sudo
 provisioner:
   name: ansible
-  env:
-    ANSIBLE_VERBOSITY: 3
-  config_options:
-    defaults:
-      interpreter_python: auto_silent
-    ssh_connection:
-      pipelining: false
   playbooks:
+    converge: converge.yml
     prepare: prepare.yml
-    converge: ../../playbooks/playbook_wildfly.yml
+    verify: ../../playbooks/wildfly.yml
     vars:
       ansible_distribution: 'RedHat'
   inventory:
@@ -36,6 +28,7 @@ verifier:
   name: ansible
 scenario:
   test_sequence:
+    - dependency
     - cleanup
     - destroy
     - syntax
